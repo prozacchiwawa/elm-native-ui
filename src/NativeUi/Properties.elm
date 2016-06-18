@@ -1,61 +1,81 @@
-module NativeUi.Properties (..) where
+module NativeUi.Properties exposing (..)
 
 {-| elm-native-ui Properties
 
-@docs numberOfLines, suppressHighlighting, testID, allowFontScaling, source, defaultSource, accessible, accessibilityLabel, resizeMode, animating, color, hidesWhenStopped, size, showsUserLocation, followUserLocation, showsPointsOfInterest, showsCompass, zoomEnabled, rotateEnabled, pitchEnabled, scrollEnabled, mapType, maxDelta, minDelta, active, enabled, mode, prompt, progress, progressViewStyle, progressTintColor, trackTintColor, refreshing, title, automaticallyAdjustContentInsets, bounces, bouncesZoom, alwaysBounceHorizontal, alwaysBounceVertical, centerContent, horizontal, indicatorStyle, directionalLockEnabled, canCancelContentTouches, keyboardDismissMode, keyboardShouldPersistTaps, maximumZoomScale, minimumZoomScale, pagingEnabled, scrollEventThrottle, scrollsToTop, sendMomentumEvents, showsHorizontalScrollIndicator, showsVerticalScrollIndicator, snapToInterval, snapToAlignment, removeClippedSubviews, zoomScale, selectedIndex, tintColor, momentary, sliderValue, step, minimumValue, maximumValue, minimumTrackTintColor, maximumTrackTintColor, disabled, hidden, animated, translucent, barStyle, networkActivityIndicatorVisible, showHideTransition, autoCapitalize, autoCorrect, autoFocus, editable, keyboardType, keyboardAppearance, returnKeyType, maxLength, enablesReturnKeyAutomatically, multiline, placeholder, placeholderTextColor, secureTextEntry, selectionColor, value, defaultValue, clearButtonMode, clearTextOnFocus, selectTextOnFocus, blurOnSubmit, underlineColorAndroid, subtitle, contentInsetStart, contentInsetEnd, rtl, accessibilityLiveRegion, importantForAccessibility, pointerEvents, renderToHardwareTextureAndroid, shouldRasterizeIOS, collapsable, needsOffscreenAlphaCompositing
+@docs numberOfLines, suppressHighlighting, testID, allowFontScaling, source, defaultSource, accessible, accessibilityLabel, resizeMode, animating, color, hidesWhenStopped, size, showsUserLocation, followUserLocation, showsPointsOfInterest, showsCompass, zoomEnabled, rotateEnabled, pitchEnabled, scrollEnabled, mapType, maxDelta, minDelta, active, enabled, mode, prompt, progress, progressViewStyle, progressTintColor, trackTintColor, refreshing, title, automaticallyAdjustContentInsets, bounces, bouncesZoom, alwaysBounceHorizontal, alwaysBounceVertical, centerContent, horizontal, indicatorStyle, directionalLockEnabled, canCancelContentTouches, keyboardDismissMode, keyboardShouldPersistTaps, maximumZoomScale, minimumZoomScale, pagingEnabled, scrollEventThrottle, scrollsToTop, sendMomentumEvents, showsHorizontalScrollIndicator, showsVerticalScrollIndicator, snapToInterval, snapToAlignment, removeClippedSubviews, zoomScale, selectedIndex, tintColor, momentary, sliderValue, step, minimumValue, maximumValue, minimumTrackTintColor, maximumTrackTintColor, disabled, hidden, animated, translucent, barStyle, networkActivityIndicatorVisible, showHideTransition, autoCapitalize, autoCorrect, autoFocus, editable, keyboardType, keyboardAppearance, returnKeyType, maxLength, enablesReturnKeyAutomatically, multiline, placeholder, placeholderTextColor, secureTextEntry, selectionColor, value, defaultValue, clearButtonMode, clearTextOnFocus, selectTextOnFocus, blurOnSubmit, underlineColorAndroid, subtitle, contentInsetStart, contentInsetEnd, rtl, accessibilityLiveRegion, importantForAccessibility, pointerEvents, renderToHardwareTextureAndroid, shouldRasterizeIOS, collapsable, needsOffscreenAlphaCompositing, ActivityIndicatorSize, ImageResizeMode, MapViewMapType, PickerMode, ProgressViewProgressViewStyle, ScrollViewIndicatorStyle, ScrollViewKeyboardDismissMode, ScrollViewSnapToAlignment, StatusBarBarStyle, StatusBarShowHideTransition, TextInputAutoCapitalize, TextInputClearButtonMode, TextInputKeyboardAppearance, TextInputKeyboardType, TextInputReturnKeyType, ViewAccessibilityLiveRegion, ViewImportantForAccessibility, ViewPointerEvents 
 -}
 
 import Json.Encode
 import NativeUi exposing (Property, property)
 
 
-numberOfLines : Float -> Property
+{-|
+-}
+numberOfLines : Float -> Property a
 numberOfLines val =
   property "numberOfLines" (Json.Encode.float val)
 
 
-suppressHighlighting : Bool -> Property
+{-|
+-}
+suppressHighlighting : Bool -> Property a
 suppressHighlighting val =
   property "suppressHighlighting" (Json.Encode.bool val)
 
 
-testID : String -> Property
+{-|
+-}
+testID : String -> Property a
 testID val =
   property "testID" (Json.Encode.string val)
 
 
-allowFontScaling : Bool -> Property
+{-|
+-}
+allowFontScaling : Bool -> Property a
 allowFontScaling val =
   property "allowFontScaling" (Json.Encode.bool val)
 
 
-source : String -> Property
+{-|
+-}
+source : String -> Property a
 source uri =
   property "source" (Json.Encode.object [ ( "uri", Json.Encode.string uri ) ])
 
 
-defaultSource : String -> Property
+{-|
+-}
+defaultSource : String -> Property a
 defaultSource uri =
   property "defaultSource" (Json.Encode.object [ ( "uri", Json.Encode.string uri ) ])
 
 
-accessible : Bool -> Property
+{-|
+-}
+accessible : Bool -> Property a
 accessible val =
   property "accessible" (Json.Encode.bool val)
 
 
-accessibilityLabel : String -> Property
+{-|
+-}
+accessibilityLabel : String -> Property a
 accessibilityLabel val =
   property "accessibilityLabel" (Json.Encode.string val)
 
 
+{-|
+-}
 type ImageResizeMode
   = ImageResizeModeCover
   | ImageResizeModeContain
   | ImageResizeModeStretch
 
 
-resizeMode : ImageResizeMode -> Property
+{-|
+-}
+resizeMode : ImageResizeMode -> Property a
 resizeMode val =
   let
     stringValue =
@@ -75,27 +95,37 @@ resizeMode val =
     property "resizeMode" jsonValue
 
 
-animating : Bool -> Property
+{-|
+-}
+animating : Bool -> Property a
 animating val =
   property "animating" (Json.Encode.bool val)
 
 
-color : String -> Property
+{-|
+-}
+color : String -> Property a
 color val =
   property "color" (Json.Encode.string val)
 
 
-hidesWhenStopped : Bool -> Property
+{-|
+-}
+hidesWhenStopped : Bool -> Property a
 hidesWhenStopped val =
   property "hidesWhenStopped" (Json.Encode.bool val)
 
 
+{-|
+-}
 type ActivityIndicatorSize
   = ActivityIndicatorSizeSmall
   | ActivityIndicatorSizeLarge
 
 
-size : ActivityIndicatorSize -> Property
+{-|
+-}
+size : ActivityIndicatorSize -> Property a
 size val =
   let
     stringValue =
@@ -112,53 +142,73 @@ size val =
     property "size" jsonValue
 
 
-showsUserLocation : Bool -> Property
+{-|
+-}
+showsUserLocation : Bool -> Property a
 showsUserLocation val =
   property "showsUserLocation" (Json.Encode.bool val)
 
 
-followUserLocation : Bool -> Property
+{-|
+-}
+followUserLocation : Bool -> Property a
 followUserLocation val =
   property "followUserLocation" (Json.Encode.bool val)
 
 
-showsPointsOfInterest : Bool -> Property
+{-|
+-}
+showsPointsOfInterest : Bool -> Property a
 showsPointsOfInterest val =
   property "showsPointsOfInterest" (Json.Encode.bool val)
 
 
-showsCompass : Bool -> Property
+{-|
+-}
+showsCompass : Bool -> Property a
 showsCompass val =
   property "showsCompass" (Json.Encode.bool val)
 
 
-zoomEnabled : Bool -> Property
+{-|
+-}
+zoomEnabled : Bool -> Property a
 zoomEnabled val =
   property "zoomEnabled" (Json.Encode.bool val)
 
 
-rotateEnabled : Bool -> Property
+{-|
+-}
+rotateEnabled : Bool -> Property a
 rotateEnabled val =
   property "rotateEnabled" (Json.Encode.bool val)
 
 
-pitchEnabled : Bool -> Property
+{-|
+-}
+pitchEnabled : Bool -> Property a
 pitchEnabled val =
   property "pitchEnabled" (Json.Encode.bool val)
 
 
-scrollEnabled : Bool -> Property
+{-|
+-}
+scrollEnabled : Bool -> Property a
 scrollEnabled val =
   property "scrollEnabled" (Json.Encode.bool val)
 
 
+{-|
+-}
 type MapViewMapType
   = MapViewMapTypeStandard
   | MapViewMapTypeSatellite
   | MapViewMapTypeHybrid
 
 
-mapType : MapViewMapType -> Property
+{-|
+-}
+mapType : MapViewMapType -> Property a
 mapType val =
   let
     stringValue =
@@ -178,32 +228,44 @@ mapType val =
     property "mapType" jsonValue
 
 
-maxDelta : Float -> Property
+{-|
+-}
+maxDelta : Float -> Property a
 maxDelta val =
   property "maxDelta" (Json.Encode.float val)
 
 
-minDelta : Float -> Property
+{-|
+-}
+minDelta : Float -> Property a
 minDelta val =
   property "minDelta" (Json.Encode.float val)
 
 
-active : Bool -> Property
+{-|
+-}
+active : Bool -> Property a
 active val =
   property "active" (Json.Encode.bool val)
 
 
-enabled : Bool -> Property
+{-|
+-}
+enabled : Bool -> Property a
 enabled val =
   property "enabled" (Json.Encode.bool val)
 
 
+{-|
+-}
 type PickerMode
   = PickerModeDialog
   | PickerModeDropdown
 
 
-mode : PickerMode -> Property
+{-|
+-}
+mode : PickerMode -> Property a
 mode val =
   let
     stringValue =
@@ -220,22 +282,30 @@ mode val =
     property "mode" jsonValue
 
 
-prompt : String -> Property
+{-|
+-}
+prompt : String -> Property a
 prompt val =
   property "prompt" (Json.Encode.string val)
 
 
-progress : Float -> Property
+{-|
+-}
+progress : Float -> Property a
 progress val =
   property "progress" (Json.Encode.float val)
 
 
+{-|
+-}
 type ProgressViewProgressViewStyle
   = ProgressViewProgressViewStyleDefault
   | ProgressViewProgressViewStyleBar
 
 
-progressViewStyle : ProgressViewProgressViewStyle -> Property
+{-|
+-}
+progressViewStyle : ProgressViewProgressViewStyle -> Property a
 progressViewStyle val =
   let
     stringValue =
@@ -252,68 +322,94 @@ progressViewStyle val =
     property "progressViewStyle" jsonValue
 
 
-progressTintColor : String -> Property
+{-|
+-}
+progressTintColor : String -> Property a
 progressTintColor val =
   property "progressTintColor" (Json.Encode.string val)
 
 
-trackTintColor : String -> Property
+{-|
+-}
+trackTintColor : String -> Property a
 trackTintColor val =
   property "trackTintColor" (Json.Encode.string val)
 
 
-refreshing : Bool -> Property
+{-|
+-}
+refreshing : Bool -> Property a
 refreshing val =
   property "refreshing" (Json.Encode.bool val)
 
 
-title : String -> Property
+{-|
+-}
+title : String -> Property a
 title val =
   property "title" (Json.Encode.string val)
 
 
-automaticallyAdjustContentInsets : Bool -> Property
+{-|
+-}
+automaticallyAdjustContentInsets : Bool -> Property a
 automaticallyAdjustContentInsets val =
   property "automaticallyAdjustContentInsets" (Json.Encode.bool val)
 
 
-bounces : Bool -> Property
+{-|
+-}
+bounces : Bool -> Property a
 bounces val =
   property "bounces" (Json.Encode.bool val)
 
 
-bouncesZoom : Bool -> Property
+{-|
+-}
+bouncesZoom : Bool -> Property a
 bouncesZoom val =
   property "bouncesZoom" (Json.Encode.bool val)
 
 
-alwaysBounceHorizontal : Bool -> Property
+{-|
+-}
+alwaysBounceHorizontal : Bool -> Property a
 alwaysBounceHorizontal val =
   property "alwaysBounceHorizontal" (Json.Encode.bool val)
 
 
-alwaysBounceVertical : Bool -> Property
+{-|
+-}
+alwaysBounceVertical : Bool -> Property a
 alwaysBounceVertical val =
   property "alwaysBounceVertical" (Json.Encode.bool val)
 
 
-centerContent : Bool -> Property
+{-|
+-}
+centerContent : Bool -> Property a
 centerContent val =
   property "centerContent" (Json.Encode.bool val)
 
 
-horizontal : Bool -> Property
+{-|
+-}
+horizontal : Bool -> Property a
 horizontal val =
   property "horizontal" (Json.Encode.bool val)
 
 
+{-|
+-}
 type ScrollViewIndicatorStyle
   = ScrollViewIndicatorStyleDefault
   | ScrollViewIndicatorStyleBlack
   | ScrollViewIndicatorStyleWhite
 
 
-indicatorStyle : ScrollViewIndicatorStyle -> Property
+{-|
+-}
+indicatorStyle : ScrollViewIndicatorStyle -> Property a
 indicatorStyle val =
   let
     stringValue =
@@ -333,23 +429,31 @@ indicatorStyle val =
     property "indicatorStyle" jsonValue
 
 
-directionalLockEnabled : Bool -> Property
+{-|
+-}
+directionalLockEnabled : Bool -> Property a
 directionalLockEnabled val =
   property "directionalLockEnabled" (Json.Encode.bool val)
 
 
-canCancelContentTouches : Bool -> Property
+{-|
+-}
+canCancelContentTouches : Bool -> Property a
 canCancelContentTouches val =
   property "canCancelContentTouches" (Json.Encode.bool val)
 
 
+{-|
+-}
 type ScrollViewKeyboardDismissMode
   = ScrollViewKeyboardDismissModeNone
   | ScrollViewKeyboardDismissModeInteractive
   | ScrollViewKeyboardDismissModeOnDrag
 
 
-keyboardDismissMode : ScrollViewKeyboardDismissMode -> Property
+{-|
+-}
+keyboardDismissMode : ScrollViewKeyboardDismissMode -> Property a
 keyboardDismissMode val =
   let
     stringValue =
@@ -369,63 +473,87 @@ keyboardDismissMode val =
     property "keyboardDismissMode" jsonValue
 
 
-keyboardShouldPersistTaps : Bool -> Property
+{-|
+-}
+keyboardShouldPersistTaps : Bool -> Property a
 keyboardShouldPersistTaps val =
   property "keyboardShouldPersistTaps" (Json.Encode.bool val)
 
 
-maximumZoomScale : Float -> Property
+{-|
+-}
+maximumZoomScale : Float -> Property a
 maximumZoomScale val =
   property "maximumZoomScale" (Json.Encode.float val)
 
 
-minimumZoomScale : Float -> Property
+{-|
+-}
+minimumZoomScale : Float -> Property a
 minimumZoomScale val =
   property "minimumZoomScale" (Json.Encode.float val)
 
 
-pagingEnabled : Bool -> Property
+{-|
+-}
+pagingEnabled : Bool -> Property a
 pagingEnabled val =
   property "pagingEnabled" (Json.Encode.bool val)
 
 
-scrollEventThrottle : Float -> Property
+{-|
+-}
+scrollEventThrottle : Float -> Property a
 scrollEventThrottle val =
   property "scrollEventThrottle" (Json.Encode.float val)
 
 
-scrollsToTop : Bool -> Property
+{-|
+-}
+scrollsToTop : Bool -> Property a
 scrollsToTop val =
   property "scrollsToTop" (Json.Encode.bool val)
 
 
-sendMomentumEvents : Bool -> Property
+{-|
+-}
+sendMomentumEvents : Bool -> Property a
 sendMomentumEvents val =
   property "sendMomentumEvents" (Json.Encode.bool val)
 
 
-showsHorizontalScrollIndicator : Bool -> Property
+{-|
+-}
+showsHorizontalScrollIndicator : Bool -> Property a
 showsHorizontalScrollIndicator val =
   property "showsHorizontalScrollIndicator" (Json.Encode.bool val)
 
 
-showsVerticalScrollIndicator : Bool -> Property
+{-|
+-}
+showsVerticalScrollIndicator : Bool -> Property a
 showsVerticalScrollIndicator val =
   property "showsVerticalScrollIndicator" (Json.Encode.bool val)
 
 
-snapToInterval : Float -> Property
+{-|
+-}
+snapToInterval : Float -> Property a
 snapToInterval val =
   property "snapToInterval" (Json.Encode.float val)
 
 
+{-|
+-}
 type ScrollViewSnapToAlignment
   = ScrollViewSnapToAlignmentStart
   | ScrollViewSnapToAlignmentCenter
   | ScrollViewSnapToAlignmentEnd
 
 
-snapToAlignment : ScrollViewSnapToAlignment -> Property
+{-|
+-}
+snapToAlignment : ScrollViewSnapToAlignment -> Property a
 snapToAlignment val =
   let
     stringValue =
@@ -445,87 +573,121 @@ snapToAlignment val =
     property "snapToAlignment" jsonValue
 
 
-removeClippedSubviews : Bool -> Property
+{-|
+-}
+removeClippedSubviews : Bool -> Property a
 removeClippedSubviews val =
   property "removeClippedSubviews" (Json.Encode.bool val)
 
 
-zoomScale : Float -> Property
+{-|
+-}
+zoomScale : Float -> Property a
 zoomScale val =
   property "zoomScale" (Json.Encode.float val)
 
 
-selectedIndex : Float -> Property
+{-|
+-}
+selectedIndex : Float -> Property a
 selectedIndex val =
   property "selectedIndex" (Json.Encode.float val)
 
 
-tintColor : String -> Property
+{-|
+-}
+tintColor : String -> Property a
 tintColor val =
   property "tintColor" (Json.Encode.string val)
 
 
-momentary : Bool -> Property
+{-|
+-}
+momentary : Bool -> Property a
 momentary val =
   property "momentary" (Json.Encode.bool val)
 
 
-sliderValue : Float -> Property
+{-|
+-}
+sliderValue : Float -> Property a
 sliderValue val =
   property "sliderValue" (Json.Encode.float val)
 
 
-step : Float -> Property
+{-|
+-}
+step : Float -> Property a
 step val =
   property "step" (Json.Encode.float val)
 
 
-minimumValue : Float -> Property
+{-|
+-}
+minimumValue : Float -> Property a
 minimumValue val =
   property "minimumValue" (Json.Encode.float val)
 
 
-maximumValue : Float -> Property
+{-|
+-}
+maximumValue : Float -> Property a
 maximumValue val =
   property "maximumValue" (Json.Encode.float val)
 
 
-minimumTrackTintColor : String -> Property
+{-|
+-}
+minimumTrackTintColor : String -> Property a
 minimumTrackTintColor val =
   property "minimumTrackTintColor" (Json.Encode.string val)
 
 
-maximumTrackTintColor : String -> Property
+{-|
+-}
+maximumTrackTintColor : String -> Property a
 maximumTrackTintColor val =
   property "maximumTrackTintColor" (Json.Encode.string val)
 
 
-disabled : Bool -> Property
+{-|
+-}
+disabled : Bool -> Property a
 disabled val =
   property "disabled" (Json.Encode.bool val)
 
 
-hidden : Bool -> Property
+{-|
+-}
+hidden : Bool -> Property a
 hidden val =
   property "hidden" (Json.Encode.bool val)
 
 
-animated : Bool -> Property
+{-|
+-}
+animated : Bool -> Property a
 animated val =
   property "animated" (Json.Encode.bool val)
 
 
-translucent : Bool -> Property
+{-|
+-}
+translucent : Bool -> Property a
 translucent val =
   property "translucent" (Json.Encode.bool val)
 
 
+{-|
+-}
 type StatusBarBarStyle
   = StatusBarBarStyleDefault
   | StatusBarBarStyleLightContent
 
 
-barStyle : StatusBarBarStyle -> Property
+{-|
+-}
+barStyle : StatusBarBarStyle -> Property a
 barStyle val =
   let
     stringValue =
@@ -542,17 +704,23 @@ barStyle val =
     property "barStyle" jsonValue
 
 
-networkActivityIndicatorVisible : Bool -> Property
+{-|
+-}
+networkActivityIndicatorVisible : Bool -> Property a
 networkActivityIndicatorVisible val =
   property "networkActivityIndicatorVisible" (Json.Encode.bool val)
 
 
+{-|
+-}
 type StatusBarShowHideTransition
   = StatusBarShowHideTransitionFade
   | StatusBarShowHideTransitionSlide
 
 
-showHideTransition : StatusBarShowHideTransition -> Property
+{-|
+-}
+showHideTransition : StatusBarShowHideTransition -> Property a
 showHideTransition val =
   let
     stringValue =
@@ -569,6 +737,8 @@ showHideTransition val =
     property "showHideTransition" jsonValue
 
 
+{-|
+-}
 type TextInputAutoCapitalize
   = TextInputAutoCapitalizeNone
   | TextInputAutoCapitalizeSentences
@@ -576,7 +746,9 @@ type TextInputAutoCapitalize
   | TextInputAutoCapitalizeCharacters
 
 
-autoCapitalize : TextInputAutoCapitalize -> Property
+{-|
+-}
+autoCapitalize : TextInputAutoCapitalize -> Property a
 autoCapitalize val =
   let
     stringValue =
@@ -599,21 +771,29 @@ autoCapitalize val =
     property "autoCapitalize" jsonValue
 
 
-autoCorrect : Bool -> Property
+{-|
+-}
+autoCorrect : Bool -> Property a
 autoCorrect val =
   property "autoCorrect" (Json.Encode.bool val)
 
 
-autoFocus : Bool -> Property
+{-|
+-}
+autoFocus : Bool -> Property a
 autoFocus val =
   property "autoFocus" (Json.Encode.bool val)
 
 
-editable : Bool -> Property
+{-|
+-}
+editable : Bool -> Property a
 editable val =
   property "editable" (Json.Encode.bool val)
 
 
+{-|
+-}
 type TextInputKeyboardType
   = TextInputKeyboardTypeDefault
   | TextInputKeyboardTypeEmailAddress
@@ -629,7 +809,9 @@ type TextInputKeyboardType
   | TextInputKeyboardTypeWebSearch
 
 
-keyboardType : TextInputKeyboardType -> Property
+{-|
+-}
+keyboardType : TextInputKeyboardType -> Property a
 keyboardType val =
   let
     stringValue =
@@ -676,13 +858,17 @@ keyboardType val =
     property "keyboardType" jsonValue
 
 
+{-|
+-}
 type TextInputKeyboardAppearance
   = TextInputKeyboardAppearanceDefault
   | TextInputKeyboardAppearanceLight
   | TextInputKeyboardAppearanceDark
 
 
-keyboardAppearance : TextInputKeyboardAppearance -> Property
+{-|
+-}
+keyboardAppearance : TextInputKeyboardAppearance -> Property a
 keyboardAppearance val =
   let
     stringValue =
@@ -702,6 +888,8 @@ keyboardAppearance val =
     property "keyboardAppearance" jsonValue
 
 
+{-|
+-}
 type TextInputReturnKeyType
   = TextInputReturnKeyTypeDefault
   | TextInputReturnKeyTypeGo
@@ -716,7 +904,9 @@ type TextInputReturnKeyType
   | TextInputReturnKeyTypeEmergencyCall
 
 
-returnKeyType : TextInputReturnKeyType -> Property
+{-|
+-}
+returnKeyType : TextInputReturnKeyType -> Property a
 returnKeyType val =
   let
     stringValue =
@@ -760,51 +950,71 @@ returnKeyType val =
     property "returnKeyType" jsonValue
 
 
-maxLength : Float -> Property
+{-|
+-}
+maxLength : Float -> Property a
 maxLength val =
   property "maxLength" (Json.Encode.float val)
 
 
-enablesReturnKeyAutomatically : Bool -> Property
+{-|
+-}
+enablesReturnKeyAutomatically : Bool -> Property a
 enablesReturnKeyAutomatically val =
   property "enablesReturnKeyAutomatically" (Json.Encode.bool val)
 
 
-multiline : Bool -> Property
+{-|
+-}
+multiline : Bool -> Property a
 multiline val =
   property "multiline" (Json.Encode.bool val)
 
 
-placeholder : String -> Property
+{-|
+-}
+placeholder : String -> Property a
 placeholder val =
   property "placeholder" (Json.Encode.string val)
 
 
-placeholderTextColor : String -> Property
+{-|
+-}
+placeholderTextColor : String -> Property a
 placeholderTextColor val =
   property "placeholderTextColor" (Json.Encode.string val)
 
 
-secureTextEntry : Bool -> Property
+{-|
+-}
+secureTextEntry : Bool -> Property a
 secureTextEntry val =
   property "secureTextEntry" (Json.Encode.bool val)
 
 
-selectionColor : String -> Property
+{-|
+-}
+selectionColor : String -> Property a
 selectionColor val =
   property "selectionColor" (Json.Encode.string val)
 
 
-value : String -> Property
+{-|
+-}
+value : String -> Property a
 value val =
   property "value" (Json.Encode.string val)
 
 
-defaultValue : String -> Property
+{-|
+-}
+defaultValue : String -> Property a
 defaultValue val =
   property "defaultValue" (Json.Encode.string val)
 
 
+{-|
+-}
 type TextInputClearButtonMode
   = TextInputClearButtonModeNever
   | TextInputClearButtonModeWhileEditing
@@ -812,7 +1022,9 @@ type TextInputClearButtonMode
   | TextInputClearButtonModeAlways
 
 
-clearButtonMode : TextInputClearButtonMode -> Property
+{-|
+-}
+clearButtonMode : TextInputClearButtonMode -> Property a
 clearButtonMode val =
   let
     stringValue =
@@ -835,53 +1047,73 @@ clearButtonMode val =
     property "clearButtonMode" jsonValue
 
 
-clearTextOnFocus : Bool -> Property
+{-|
+-}
+clearTextOnFocus : Bool -> Property a
 clearTextOnFocus val =
   property "clearTextOnFocus" (Json.Encode.bool val)
 
 
-selectTextOnFocus : Bool -> Property
+{-|
+-}
+selectTextOnFocus : Bool -> Property a
 selectTextOnFocus val =
   property "selectTextOnFocus" (Json.Encode.bool val)
 
 
-blurOnSubmit : Bool -> Property
+{-|
+-}
+blurOnSubmit : Bool -> Property a
 blurOnSubmit val =
   property "blurOnSubmit" (Json.Encode.bool val)
 
 
-underlineColorAndroid : String -> Property
+{-|
+-}
+underlineColorAndroid : String -> Property a
 underlineColorAndroid val =
   property "underlineColorAndroid" (Json.Encode.string val)
 
 
-subtitle : String -> Property
+{-|
+-}
+subtitle : String -> Property a
 subtitle val =
   property "subtitle" (Json.Encode.string val)
 
 
-contentInsetStart : Float -> Property
+{-|
+-}
+contentInsetStart : Float -> Property a
 contentInsetStart val =
   property "contentInsetStart" (Json.Encode.float val)
 
 
-contentInsetEnd : Float -> Property
+{-|
+-}
+contentInsetEnd : Float -> Property a
 contentInsetEnd val =
   property "contentInsetEnd" (Json.Encode.float val)
 
 
-rtl : Bool -> Property
+{-|
+-}
+rtl : Bool -> Property a
 rtl val =
   property "rtl" (Json.Encode.bool val)
 
 
+{-|
+-}
 type ViewAccessibilityLiveRegion
   = ViewAccessibilityLiveRegionNone
   | ViewAccessibilityLiveRegionPolite
   | ViewAccessibilityLiveRegionAssertive
 
 
-accessibilityLiveRegion : ViewAccessibilityLiveRegion -> Property
+{-|
+-}
+accessibilityLiveRegion : ViewAccessibilityLiveRegion -> Property a
 accessibilityLiveRegion val =
   let
     stringValue =
@@ -901,6 +1133,8 @@ accessibilityLiveRegion val =
     property "accessibilityLiveRegion" jsonValue
 
 
+{-|
+-}
 type ViewImportantForAccessibility
   = ViewImportantForAccessibilityAuto
   | ViewImportantForAccessibilityYes
@@ -908,7 +1142,9 @@ type ViewImportantForAccessibility
   | ViewImportantForAccessibilityNoHideDescendants
 
 
-importantForAccessibility : ViewImportantForAccessibility -> Property
+{-|
+-}
+importantForAccessibility : ViewImportantForAccessibility -> Property a
 importantForAccessibility val =
   let
     stringValue =
@@ -931,6 +1167,8 @@ importantForAccessibility val =
     property "importantForAccessibility" jsonValue
 
 
+{-|
+-}
 type ViewPointerEvents
   = ViewPointerEventsBoxNone
   | ViewPointerEventsNone
@@ -938,7 +1176,9 @@ type ViewPointerEvents
   | ViewPointerEventsAuto
 
 
-pointerEvents : ViewPointerEvents -> Property
+{-|
+-}
+pointerEvents : ViewPointerEvents -> Property a
 pointerEvents val =
   let
     stringValue =
@@ -961,21 +1201,29 @@ pointerEvents val =
     property "pointerEvents" jsonValue
 
 
-renderToHardwareTextureAndroid : Bool -> Property
+{-|
+-}
+renderToHardwareTextureAndroid : Bool -> Property a
 renderToHardwareTextureAndroid val =
   property "renderToHardwareTextureAndroid" (Json.Encode.bool val)
 
 
-shouldRasterizeIOS : Bool -> Property
+{-|
+-}
+shouldRasterizeIOS : Bool -> Property a
 shouldRasterizeIOS val =
   property "shouldRasterizeIOS" (Json.Encode.bool val)
 
 
-collapsable : Bool -> Property
+{-|
+-}
+collapsable : Bool -> Property a
 collapsable val =
   property "collapsable" (Json.Encode.bool val)
 
 
-needsOffscreenAlphaCompositing : Bool -> Property
+{-|
+-}
+needsOffscreenAlphaCompositing : Bool -> Property a
 needsOffscreenAlphaCompositing val =
   property "needsOffscreenAlphaCompositing" (Json.Encode.bool val)

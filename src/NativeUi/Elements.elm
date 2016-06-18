@@ -1,4 +1,4 @@
-module NativeUi.Elements (..) where
+module NativeUi.Elements exposing (..)
 
 {-| elm-native-ui Elements
 
@@ -8,86 +8,120 @@ module NativeUi.Elements (..) where
 import NativeUi exposing (Property, NativeUi, node)
 
 
-text : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+text : List (Property a) -> List (NativeUi a) -> NativeUi a
 text =
   node "Text"
 
 
-image : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+image : List (Property a) -> List (NativeUi a) -> NativeUi a
 image =
   node "Image"
 
 
-activityIndicator : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+activityIndicator : List (Property a) -> List (NativeUi a) -> NativeUi a
 activityIndicator =
   node "ActivityIndicator"
 
 
-mapView : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+mapView : List (Property a) -> List (NativeUi a) -> NativeUi a
 mapView =
   node "MapView"
 
 
-picker : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+picker : List (Property a) -> List (NativeUi a) -> NativeUi a
 picker =
   node "Picker"
 
 
-progressBar : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+progressBar : List (Property a) -> List (NativeUi a) -> NativeUi a
 progressBar =
   node "ProgressBar"
 
 
-progressView : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+progressView : List (Property a) -> List (NativeUi a) -> NativeUi a
 progressView =
   node "ProgressView"
 
 
-refreshControl : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+refreshControl : List (Property a) -> List (NativeUi a) -> NativeUi a
 refreshControl =
   node "RefreshControl"
 
 
-scrollView : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+scrollView : List (Property a) -> List (NativeUi a) -> NativeUi a
 scrollView =
   node "ScrollView"
 
 
-segmentedControl : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+segmentedControl : List (Property a) -> List (NativeUi a) -> NativeUi a
 segmentedControl =
   node "SegmentedControl"
 
 
-slider : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+slider : List (Property a) -> List (NativeUi a) -> NativeUi a
 slider =
   node "Slider"
 
 
-statusBar : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+statusBar : List (Property a) -> List (NativeUi a) -> NativeUi a
 statusBar =
   node "StatusBar"
 
 
-switch : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+switch : List (Property a) -> List (NativeUi a) -> NativeUi a
 switch =
   node "Switch"
 
 
-tabBar : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+tabBar : List (Property a) -> List (NativeUi a) -> NativeUi a
 tabBar =
   node "TabBar"
 
 
-textInput : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+textInput : List (Property a) -> List (NativeUi a) -> NativeUi a
 textInput =
   node "TextInput"
 
 
-toolbar : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+toolbar : List (Property a) -> List (NativeUi a) -> NativeUi a
 toolbar =
   node "Toolbar"
 
 
-view : List Property -> List NativeUi -> NativeUi
+{-|
+-}
+view : List (Property a) -> List (NativeUi a) -> NativeUi a
 view =
   node "View"

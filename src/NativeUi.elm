@@ -1,4 +1,4 @@
-module NativeUi (NativeUi, node, string, style, on, Property, property) where
+module NativeUi exposing (NativeUi(..), node, string, style, on, Property(..), property)
 
 {-| Render your application as a React Native app.
 
@@ -14,16 +14,13 @@ module NativeUi (NativeUi, node, string, style, on, Property, property) where
 
 import Json.Encode
 import Json.Decode
-import Signal
 import NativeUi.Style as Style
-import Native.ElmFunctions
-import Native.NativeUi
 
 
 {-| A node in the virtual View Tree that forms the basis of the UI for your app.
 -}
-type NativeUi
-  = VNode String (List Property) (List NativeUi)
+type NativeUi a
+  = VNode String (List (Property a)) (List (NativeUi a))
   | VString String
 
 
@@ -32,20 +29,9 @@ Most Properties can be represented as Json values, and you should always try to 
 If you must use a property that can't be encoded as Json, the NativeProperty tag can be used
 to attach an opaque `NativeValue`.
 -}
-type Property
+type Property a
   = JsonProperty String Json.Decode.Value
-  | NativeProperty String NativeValue
-
-
-{-| An opaque value that is backed by a Native javascript value.
-This is used to attach event handlers to `NativeUi` nodes, since functions can't be encoded
-as Json values.
-
-Try not to use `NativeValue` if you can avoid it, since the compiler can't help you
-catch any mistakes that might lead to runtime errors.
--}
-type NativeValue
-  = NativeValue
+  | EventHandler String (Json.Decode.Decoder a)
 
 
 {-| Create a `NativeUi` node with the given `tagName`, a list of properties,
@@ -54,7 +40,7 @@ and a list of child `NativeUi` nodes.
 The `tagName` will be used to look up a React Component class with the same name,
 so e.g. `node "View"` will render a React Native `View` component.
 -}
-node : String -> List Property -> List NativeUi -> NativeUi
+node : String -> List (Property a) -> List (NativeUi a) -> NativeUi a
 node tagName props children =
   VNode tagName props children
 
@@ -70,7 +56,7 @@ as a child of another node.
       ]
       [ string "Hello World!" ]
 -}
-string : String -> NativeUi
+string : String -> NativeUi a
 string =
   VString
 
@@ -83,14 +69,14 @@ string =
 
 Use this for properties that can be represented as Json values.
 -}
-property : String -> Json.Decode.Value -> Property
+property : String -> Json.Decode.Value -> Property a
 property name value =
   JsonProperty name value
 
 
 {-| Turns a list of `Style`s into a property you can attach to a `NativeUi` node.
 -}
-style : List Style.Style -> Property
+style : List Style.Style -> Property a
 style styles =
   Style.encode styles
     |> property "style"
@@ -99,20 +85,12 @@ style styles =
 
 -- Events
 
-
-nativeEventHandler : Json.Decode.Decoder a -> (a -> Signal.Message) -> NativeValue
-nativeEventHandler =
-  Native.NativeUi.nativeEventHandler
-
-
 {-| -}
-on : String -> Json.Decode.Decoder a -> (a -> Signal.Message) -> Property
-on name decoder toMessage =
+on : String -> Json.Decode.Decoder a -> (a -> b) -> Property b
+on name decoder tagger =
   let
     fullName =
       "on" ++ name
 
-    handler =
-      nativeEventHandler decoder toMessage
   in
-    NativeProperty fullName handler
+    EventHandler fullName (decoder `Json.Decode.andThen` (\v -> Json.Decode.succeed (tagger v)))

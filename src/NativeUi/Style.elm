@@ -1,8 +1,14 @@
-module NativeUi.Style (..) where
+module NativeUi.Style exposing (..)
+
+{-| 
+@docs Style, Transform, Value, alignItems, alignSelf, backfaceVisibility, backgroundColor, borderBottomColor, borderBottomLeftRadius, borderBottomRightRadius, borderBottomWidth, borderColor, borderLeftColor, borderLeftWidth, borderRadius, borderRightColor, borderRightWidth, borderStyle, borderTopColor, borderTopLeftRadius, borderTopRightRadius, borderTopWidth, borderWidth, bottom, color, defaultTransform, encode, encodeDeclaration, encodeObject, encodeValue, flex, flexDirection, flexWrap, fontFamily, fontSize, fontStyle, fontWeight, height, justifyContent, left, letterSpacing, lineHeight, listDeclaration, listStyle, margin, marginBottom, marginHorizontal, marginLeft, marginRight, marginTop, marginVertical, numberDeclaration, numberStyle, objectDeclaration, objectStyle, opacity, overflow, padding, paddingBottom, paddingHorizontal, paddingLeft, paddingRight, paddingTop, paddingVertical, position, resizeMode, right, shadowColor, shadowOffset, shadowOpacity, shadowRadius, stringDeclaration, stringStyle, textAlign, textDecorationColor, textDecorationLine, textDecorationStyle, tintColor, toJsonProperty, top, transform, width, writingDirection, Declaration
+
+-}
 
 import Json.Encode
 
-
+{-|
+-}
 type Value
   = StringValue String
   | NumberValue Float
@@ -10,50 +16,70 @@ type Value
   | ListValue (List (Maybe Declaration))
 
 
+{-|
+-}
 stringDeclaration : String -> String -> Declaration
 stringDeclaration name value =
   ( name, StringValue value )
 
 
+{-|
+-}
 numberDeclaration : String -> Float -> Declaration
 numberDeclaration name value =
   ( name, NumberValue value )
 
 
+{-|
+-}
 objectDeclaration : String -> List Declaration -> Declaration
 objectDeclaration name value =
   ( name, ObjectValue value )
 
 
+{-|
+-}
 listDeclaration : String -> List (Maybe Declaration) -> Declaration
 listDeclaration name value =
   ( name, ListValue value )
 
 
+{-|
+-}
 stringStyle : String -> String -> Style
 stringStyle name value =
   StringStyle (stringDeclaration name value)
 
 
+{-|
+-}
 numberStyle : String -> Float -> Style
 numberStyle name value =
   NumberStyle (numberDeclaration name value)
 
 
+{-|
+-}
 objectStyle : String -> List Declaration -> Style
 objectStyle name list =
   ObjectStyle (objectDeclaration name list)
 
 
+{-|
+-}
 listStyle : String -> List (Maybe Declaration) -> Style
 listStyle name list =
   ListStyle (listDeclaration name list)
 
 
+{-|
+-}
 type alias Declaration =
   ( String, Value )
 
 
+{-|
+-}
 type Style
   = StringStyle Declaration
   | NumberStyle Declaration
@@ -61,6 +87,8 @@ type Style
   | ListStyle Declaration
 
 
+{-|
+-}
 encodeValue : Value -> Json.Encode.Value
 encodeValue value =
   case value of
@@ -77,16 +105,22 @@ encodeValue value =
       Json.Encode.list (List.map encodeObject (List.filterMap identity list))
 
 
+{-|
+-}
 encodeDeclaration : ( String, Value ) -> ( String, Json.Encode.Value )
 encodeDeclaration ( name, value ) =
   ( name, encodeValue value )
 
 
+{-|
+-}
 encodeObject : ( String, Value ) -> Json.Encode.Value
 encodeObject ( name, value ) =
   Json.Encode.object [ ( name, (encodeValue value) ) ]
 
 
+{-|
+-}
 toJsonProperty : Style -> ( String, Json.Encode.Value )
 toJsonProperty style =
   case style of
@@ -103,6 +137,8 @@ toJsonProperty style =
       ( name, encodeValue value )
 
 
+{-|
+-}
 encode : List Style -> Json.Encode.Value
 encode styles =
   styles
@@ -114,21 +150,29 @@ encode styles =
 -- Text Styles
 
 
+{-|
+-}
 color : String -> Style
 color =
   stringStyle "color"
 
 
+{-|
+-}
 fontFamily : String -> Style
 fontFamily =
   stringStyle "fontFamily"
 
 
+{-|
+-}
 fontSize : Float -> Style
 fontSize =
   numberStyle "fontSize"
 
 
+{-|
+-}
 fontStyle : String -> Style
 
 
@@ -136,10 +180,14 @@ fontStyle : String -> Style
 --enum('normal', 'italic')
 
 
+{-|
+-}
 fontStyle =
   stringStyle "fontStyle"
 
 
+{-|
+-}
 fontWeight : String -> Style
 
 
@@ -147,20 +195,28 @@ fontWeight : String -> Style
 --enum("normal", 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900')
 
 
+{-|
+-}
 fontWeight =
   stringStyle "fontWeight"
 
 
+{-|
+-}
 letterSpacing : Float -> Style
 letterSpacing =
   numberStyle "letterSpacing"
 
 
+{-|
+-}
 lineHeight : Float -> Style
 lineHeight =
   numberStyle "lineHeight"
 
 
+{-|
+-}
 textAlign : String -> Style
 
 
@@ -168,10 +224,14 @@ textAlign : String -> Style
 --enum("auto", 'left', 'right', 'center', 'justify')
 
 
+{-|
+-}
 textAlign =
   stringStyle "textAlign"
 
 
+{-|
+-}
 textDecorationLine : String -> Style
 
 
@@ -179,10 +239,14 @@ textDecorationLine : String -> Style
 --enum("none", 'underline', 'line-through', 'underline line-through')
 
 
+{-|
+-}
 textDecorationLine =
   stringStyle "textDecorationLine"
 
 
+{-|
+-}
 textDecorationStyle : String -> Style
 
 
@@ -190,15 +254,21 @@ textDecorationStyle : String -> Style
 --enum("solid", 'double', 'dotted', 'dashed')
 
 
+{-|
+-}
 textDecorationStyle =
   stringStyle "textDecorationStyle"
 
 
+{-|
+-}
 textDecorationColor : String -> Style
 textDecorationColor =
   stringStyle "textDecorationColor"
 
 
+{-|
+-}
 writingDirection : String -> Style
 
 
@@ -206,6 +276,8 @@ writingDirection : String -> Style
 --enum("auto", 'ltr', 'rtl')
 
 
+{-|
+-}
 writingDirection =
   stringStyle "writingDirection"
 
@@ -214,6 +286,8 @@ writingDirection =
 --View Styles
 
 
+{-|
+-}
 backfaceVisibility : String -> Style
 
 
@@ -221,65 +295,91 @@ backfaceVisibility : String -> Style
 --enum('visible', 'hidden')
 
 
+{-|
+-}
 backfaceVisibility =
   stringStyle "backfaceVisibility"
 
 
+{-|
+-}
 backgroundColor : String -> Style
 backgroundColor =
   stringStyle "backgroundColor"
 
 
+{-|
+-}
 borderColor : String -> Style
 borderColor =
   stringStyle "borderColor"
 
 
+{-|
+-}
 borderTopColor : String -> Style
 borderTopColor =
   stringStyle "borderTopColor"
 
 
+{-|
+-}
 borderRightColor : String -> Style
 borderRightColor =
   stringStyle "borderRightColor"
 
 
+{-|
+-}
 borderBottomColor : String -> Style
 borderBottomColor =
   stringStyle "borderBottomColor"
 
 
+{-|
+-}
 borderLeftColor : String -> Style
 borderLeftColor =
   stringStyle "borderLeftColor"
 
 
+{-|
+-}
 borderRadius : Float -> Style
 borderRadius =
   numberStyle "borderRadius"
 
 
+{-|
+-}
 borderTopLeftRadius : Float -> Style
 borderTopLeftRadius =
   numberStyle "borderTopLeftRadius"
 
 
+{-|
+-}
 borderTopRightRadius : Float -> Style
 borderTopRightRadius =
   numberStyle "borderTopRightRadius"
 
 
+{-|
+-}
 borderBottomLeftRadius : Float -> Style
 borderBottomLeftRadius =
   numberStyle "borderBottomLeftRadius"
 
 
+{-|
+-}
 borderBottomRightRadius : Float -> Style
 borderBottomRightRadius =
   numberStyle "borderBottomRightRadius"
 
 
+{-|
+-}
 borderStyle : String -> Style
 
 
@@ -287,40 +387,56 @@ borderStyle : String -> Style
 --enum('solid', 'dotted', 'dashed')
 
 
+{-|
+-}
 borderStyle =
   stringStyle "borderStyle"
 
 
+{-|
+-}
 borderWidth : Float -> Style
 borderWidth =
   numberStyle "borderWidth"
 
 
+{-|
+-}
 borderTopWidth : Float -> Style
 borderTopWidth =
   numberStyle "borderTopWidth"
 
 
+{-|
+-}
 borderRightWidth : Float -> Style
 borderRightWidth =
   numberStyle "borderRightWidth"
 
 
+{-|
+-}
 borderBottomWidth : Float -> Style
 borderBottomWidth =
   numberStyle "borderBottomWidth"
 
 
+{-|
+-}
 borderLeftWidth : Float -> Style
 borderLeftWidth =
   numberStyle "borderLeftWidth"
 
 
+{-|
+-}
 opacity : Float -> Style
 opacity =
   numberStyle "opacity"
 
 
+{-|
+-}
 overflow : String -> Style
 
 
@@ -328,15 +444,21 @@ overflow : String -> Style
 --enum('visible', 'hidden')
 
 
+{-|
+-}
 overflow =
   stringStyle "overflow"
 
 
+{-|
+-}
 shadowColor : String -> Style
 shadowColor =
   stringStyle "shadowColor"
 
 
+{-|
+-}
 shadowOffset : Float -> Float -> Style
 shadowOffset width height =
   objectStyle
@@ -346,11 +468,15 @@ shadowOffset width height =
     ]
 
 
+{-|
+-}
 shadowOpacity : Float -> Style
 shadowOpacity =
   numberStyle "shadowOpacity"
 
 
+{-|
+-}
 shadowRadius : Float -> Style
 shadowRadius =
   numberStyle "shadowRadius"
@@ -360,6 +486,8 @@ shadowRadius =
 --Image Styles
 
 
+{-|
+-}
 resizeMode : String -> Style
 
 
@@ -367,6 +495,8 @@ resizeMode : String -> Style
 --enum('cover', 'contain', 'stretch')
 
 
+{-|
+-}
 resizeMode =
   stringStyle "resizeMode"
 
@@ -384,6 +514,8 @@ resizeMode =
 --overflow = stringStyle "overflow"
 
 
+{-|
+-}
 tintColor : String -> Style
 tintColor =
   stringStyle "tintColor"
@@ -395,6 +527,8 @@ tintColor =
 --Flex Styles
 
 
+{-|
+-}
 alignItems : String -> Style
 
 
@@ -402,10 +536,14 @@ alignItems : String -> Style
 --enum('flex-start', 'flex-end', 'center', 'stretch')
 
 
+{-|
+-}
 alignItems =
   stringStyle "alignItems"
 
 
+{-|
+-}
 alignSelf : String -> Style
 
 
@@ -413,6 +551,8 @@ alignSelf : String -> Style
 --enum('auto', 'flex-start', 'flex-end', 'center', 'stretch')
 
 
+{-|
+-}
 alignSelf =
   stringStyle "alignSelf"
 
@@ -430,16 +570,22 @@ alignSelf =
 --borderWidth = numberStyle "borderWidth"
 
 
+{-|
+-}
 bottom : Float -> Style
 bottom =
   numberStyle "bottom"
 
 
+{-|
+-}
 flex : Float -> Style
 flex =
   numberStyle "flex"
 
 
+{-|
+-}
 flexDirection : String -> Style
 
 
@@ -447,10 +593,14 @@ flexDirection : String -> Style
 --enum('row', 'column')
 
 
+{-|
+-}
 flexDirection =
   stringStyle "flexDirection"
 
 
+{-|
+-}
 flexWrap : String -> Style
 
 
@@ -458,15 +608,21 @@ flexWrap : String -> Style
 --enum('wrap', 'nowrap')
 
 
+{-|
+-}
 flexWrap =
   stringStyle "flexWrap"
 
 
+{-|
+-}
 height : Float -> Style
 height =
   numberStyle "height"
 
 
+{-|
+-}
 justifyContent : String -> Style
 
 
@@ -474,85 +630,119 @@ justifyContent : String -> Style
 --enum('flex-start', 'flex-end', 'center', 'space-between', 'space-around')
 
 
+{-|
+-}
 justifyContent =
   stringStyle "justifyContent"
 
 
+{-|
+-}
 left : Float -> Style
 left =
   numberStyle "left"
 
 
+{-|
+-}
 margin : Float -> Style
 margin =
   numberStyle "margin"
 
 
+{-|
+-}
 marginBottom : Float -> Style
 marginBottom =
   numberStyle "marginBottom"
 
 
+{-|
+-}
 marginHorizontal : Float -> Style
 marginHorizontal =
   numberStyle "marginHorizontal"
 
 
+{-|
+-}
 marginLeft : Float -> Style
 marginLeft =
   numberStyle "marginLeft"
 
 
+{-|
+-}
 marginRight : Float -> Style
 marginRight =
   numberStyle "marginRight"
 
 
+{-|
+-}
 marginTop : Float -> Style
 marginTop =
   numberStyle "marginTop"
 
 
+{-|
+-}
 marginVertical : Float -> Style
 marginVertical =
   numberStyle "marginVertical"
 
 
+{-|
+-}
 padding : Float -> Style
 padding =
   numberStyle "padding"
 
 
+{-|
+-}
 paddingBottom : Float -> Style
 paddingBottom =
   numberStyle "paddingBottom"
 
 
+{-|
+-}
 paddingHorizontal : Float -> Style
 paddingHorizontal =
   numberStyle "paddingHorizontal"
 
 
+{-|
+-}
 paddingLeft : Float -> Style
 paddingLeft =
   numberStyle "paddingLeft"
 
 
+{-|
+-}
 paddingRight : Float -> Style
 paddingRight =
   numberStyle "paddingRight"
 
 
+{-|
+-}
 paddingTop : Float -> Style
 paddingTop =
   numberStyle "paddingTop"
 
 
+{-|
+-}
 paddingVertical : Float -> Style
 paddingVertical =
   numberStyle "paddingVertical"
 
 
+{-|
+-}
 position : String -> Style
 
 
@@ -560,20 +750,28 @@ position : String -> Style
 --enum('absolute', 'relative')
 
 
+{-|
+-}
 position =
   stringStyle "position"
 
 
+{-|
+-}
 right : Float -> Style
 right =
   numberStyle "right"
 
 
+{-|
+-}
 top : Float -> Style
 top =
   numberStyle "top"
 
 
+{-|
+-}
 width : Float -> Style
 width =
   numberStyle "width"
@@ -583,6 +781,8 @@ width =
 --Transform Styles
 
 
+{-|
+-}
 type alias Transform =
   { perspective : Maybe Float
   , rotate : Maybe String
@@ -599,6 +799,8 @@ type alias Transform =
   }
 
 
+{-|
+-}
 defaultTransform : Transform
 defaultTransform =
   { perspective = Nothing
@@ -616,6 +818,8 @@ defaultTransform =
   }
 
 
+{-|
+-}
 transform : Transform -> Style
 transform options =
   listStyle
