@@ -111,7 +111,7 @@ updateNativeApp renderPort view update action model =
     let eventRouters = getReactEvents viewResult in
     ({ model | model = updatedModel, eventRouters = Dict.fromList eventRouters }, Cmd.batch [Cmd.map AppMsg cmds, Cmd.map (\_ -> NoOp) (renderPort reactView)])
   in
-  case log "NativeApp:action" action of
+  case action of
     NoOp -> (model, Cmd.none)
     Paint ->
       let viewResult = view model.model in
