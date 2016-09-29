@@ -1,4 +1,4 @@
-module NativeUi exposing (NativeUi(..), node, string, style, on, Property(..), property)
+module NativeUi exposing (NativeUi(..), node, string, style, on, Property(..), property, map)
 
 {-| Render your application as a React Native app.
 
@@ -94,3 +94,18 @@ on name decoder tagger =
 
   in
     EventHandler fullName (decoder `Json.Decode.andThen` (\v -> Json.Decode.succeed (tagger v)))
+
+propMap : (a -> msg) -> Property a -> Property msg
+propMap f p =
+  case p of
+    JsonProperty n v -> JsonProperty n v
+    EventHandler n d -> EventHandler n (Json.Decode.map f d)
+
+{-| Nest views as with [Html.App.map](http://package.elm-lang.org/packages/elm-lang/html/latest/Html-App#map)
+-}
+map : (a -> msg) -> NativeUi a -> NativeUi msg
+map f nd =
+  case nd of
+    VString s -> VString s
+    VNode ty props children ->
+      VNode ty (List.map (propMap f) props) (List.map (map f) children)
